@@ -36,6 +36,26 @@
             class="hidesm" src="/assets/images/intro_wedding.jpg"
             alt="Intro Gallery Dining Sample Pictures">
           </div>
+          <h1>Available Rooms</h1>
+          <div class="row" *ngIf="rooms">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table" id="roomsTable">
+                  <tbody>
+                  <tr *ngFor="let room of rooms">
+                    <td>
+                      <img src="/assets/images/intro_room.jpg" />
+                    </td>
+                    <td>
+                      <strong>Room #: {{room.roomNumber}}</strong><br/>
+                      <strong>Price: {{room.price}}</strong>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
