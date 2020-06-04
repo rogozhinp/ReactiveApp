@@ -16,4 +16,11 @@ public class ReservationResourse {
         // reservationService.getReservation(roomId)
         return Mono.just("{}");
     }
+
+    @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Mono<String> createReservation(@RequestBody Mono<Reservation> reservation) {
+
+        return Mono.just("{}");
+    }
 }
