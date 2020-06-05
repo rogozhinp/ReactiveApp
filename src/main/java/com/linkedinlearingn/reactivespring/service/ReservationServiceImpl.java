@@ -1,5 +1,6 @@
 package com.linkedinlearingn.reactivespring.service;
 
+
 import com.linkedinlearingn.reactivespring.model.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.ReactiveMongoOperations;
@@ -46,7 +47,9 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public Mono<Reservation> deleteReservation(String id) {
-        return null;
+    public Mono<Boolean> deleteReservation(String id) {
+        return reactiveMongoOperations.remove(
+                Query.query(Criteria.where("id").is(id)), Reservation.class)
+        .flatMap(deleteResult -> Mono.just(deleteResult.wasAcknowledged()));
     }
 }
