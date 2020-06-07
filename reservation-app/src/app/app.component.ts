@@ -12,7 +12,8 @@ import {ReservationService, ReservationRequest, Reservation} from "./reservation
 export class AppComponent {
   title = 'reservation-app';
 
-  constructor(private reservationService: ReservationService){}
+  constructor(private reservationService: ReservationService) {
+  }
 
   rooms: Room[];
   roomSearchForm: FormGroup;
@@ -22,7 +23,7 @@ export class AppComponent {
   currentRoomNumber: number;
   currentReservations: Reservation[];
 
-  ngOnInit(){
+  ngOnInit() {
     this.roomSearchForm = new FormGroup({
       checkin: new FormControl(''),
       checkout: new FormControl(''),
@@ -33,13 +34,13 @@ export class AppComponent {
       this.currentCheckInVal = form.checkin;
       this.currentCheckOutVal = form.checkout;
 
-      if(form.roomNumber) {
+      if (form.roomNumber) {
         let roomValues: string[] = form.roomNumber.split('|');
         this.currentRoomNumber = Number(roomValues[0]);
         this.currentPrice = Number(roomValues[1]);
       }
 
-      });
+    });
 
     this.rooms = [
       new Room("127", "127", "150"),
@@ -52,20 +53,21 @@ export class AppComponent {
 
   }
 
-  getCurrentReservations(){
+  getCurrentReservations() {
     this.reservationService.getReservations()
       .subscribe(getResult => {
-      console.log(getResult);
-      this.currentReservations = getResult;
+        console.log(getResult);
+        this.currentReservations = getResult;
       });
   }
 
-  createReservation(){
+  createReservation() {
     this.reservationService.createReservation(
       new ReservationRequest(this.currentRoomNumber, this.currentCheckInVal, this.currentCheckOutVal, this.currentPrice)
-    ).subscribe(postResult =>
-      console.log(postResult)
-    )
+    ).subscribe(postResult => {
+      console.log(postResult);
+      this.getCurrentReservations();
+    });
   }
 }
 
