@@ -11,6 +11,10 @@ export class ReservationService {
   private baseUrl:string = 'http://localhost:8080';
   private reservationUrl:string = this.baseUrl + '/room/v1/reservation/';
 
+  getReservations() : Observable<Reservation[]>{
+    return this.http.get<Reservation[]>(this.reservationUrl);
+  }
+
   createReservation(body: ReservationRequest): Observable<Reservation>{
     let httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
