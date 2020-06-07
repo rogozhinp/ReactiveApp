@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -51,5 +52,10 @@ public class ReservationServiceImpl implements ReservationService {
         return reactiveMongoOperations.remove(
                 Query.query(Criteria.where("id").is(id)), Reservation.class)
         .flatMap(deleteResult -> Mono.just(deleteResult.wasAcknowledged()));
+    }
+
+    @Override
+    public Flux<Reservation> listAllReservations() {
+        return reactiveMongoOperations.findAll(Reservation.class);
     }
 }

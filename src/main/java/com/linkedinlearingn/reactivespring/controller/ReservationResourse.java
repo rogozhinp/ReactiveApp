@@ -5,6 +5,7 @@ import com.linkedinlearingn.reactivespring.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -24,6 +25,12 @@ public class ReservationResourse {
     public Mono<Reservation> getReservationById(@PathVariable String id){
 
         return reservationService.getReservation(id);
+    }
+
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Flux<Reservation> getAllReservations(){
+
+        return reservationService.listAllReservations();
     }
 
     @PostMapping(path = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE,
