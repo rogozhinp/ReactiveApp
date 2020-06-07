@@ -7,8 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -45,6 +47,14 @@ public class ReservationResourseTest {
 
     @Test
     public void createReservation() {
+
+        webTestClient.post()
+                .uri(ROOM_V_1_RESERVATION)
+                .body(Mono.just(reservation), Reservation.class)
+                .exchange()
+                .expectStatus().isOk()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON_UTF8)
+                .expectBody(Reservation.class);
 
     }
 }
