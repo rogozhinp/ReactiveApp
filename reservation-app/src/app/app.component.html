@@ -58,6 +58,39 @@
           </div>
 
         </div>
+        <hr />
+        <h1>Reserve Room</h1>
+        <form action="form-horizontal" [formGroup]="roomSearchForm" (ngSubmit)="createReservation()">
+          <div class="form-group">
+            <label for="checkin" class="col-4">Check-In:</label>
+            <div class="col-8">
+              <input id="checkin" type="date" class="form-control" formControlName="checkin">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="checkout" class="col-4">Check-Out:</label>
+            <div class="col-8">
+              <input id="checkout" type="date" class="form-control" formControlName="checkout">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="roomNumber" class="col-4">Room Number:</label>
+            <div class="col-8">
+              <select id="roomNumber" formControlName="roomNumber">
+                <option *ngFor="let room of rooms" [value]="room.roomNumber + '|' + room.price">
+                  {{room.roomNumber}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-offset-2 col-10">
+              <button type="submit" class="btn btn-primary btn-large">Reserve Room</button>
+            </div>
+          </div>
+        </form>
       </div>
 
     </article>
